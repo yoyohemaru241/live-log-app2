@@ -10,8 +10,8 @@ export default function NewLivePage() {
   const [artist, setArtist] = useState("");
   const [liveDate, setLiveDate] = useState("");
   const [venue, setVenue] = useState("");
-  const [openTime, setOpenTime] = useState("");
-  const [startTime, setStartTime] = useState("");
+  const [openTime, setOpenTime] = useState("18:00");
+  const [startTime, setStartTime] = useState("19:00");
   const [memo, setMemo] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -44,6 +44,7 @@ export default function NewLivePage() {
       <div className="text-2xl font-black mb-4">NEW LIVE</div>
 
       <form onSubmit={onSubmit} className="space-y-3 max-w-md">
+        {/* ARTIST */}
         <input
           className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3"
           placeholder="ARTIST"
@@ -52,6 +53,7 @@ export default function NewLivePage() {
           required
         />
 
+        {/* DATE */}
         <input
           className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3"
           type="date"
@@ -60,6 +62,7 @@ export default function NewLivePage() {
           required
         />
 
+        {/* VENUE */}
         <input
           className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3"
           placeholder="VENUE"
@@ -67,21 +70,34 @@ export default function NewLivePage() {
           onChange={(e) => setVenue(e.target.value)}
         />
 
-        <div className="grid grid-cols-2 gap-3">
-          <input
-            className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3"
-            placeholder="OPEN"
-            value={openTime}
-            onChange={(e) => setOpenTime(e.target.value)}
-          />
-          <input
-            className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3"
-            placeholder="START"
-            value={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
-          />
+        {/* OPEN / START */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-3">
+            <div className="mb-2 text-xs font-black tracking-widest text-zinc-400">
+              OPEN
+            </div>
+            <input
+              type="time"
+              value={openTime}
+              onChange={(e) => setOpenTime(e.target.value)}
+              className="w-full rounded-xl bg-black/30 border border-zinc-800 p-3 font-black"
+            />
+          </div>
+
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-3">
+            <div className="mb-2 text-xs font-black tracking-widest text-zinc-400">
+              START
+            </div>
+            <input
+              type="time"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              className="w-full rounded-xl bg-black/30 border border-zinc-800 p-3 font-black"
+            />
+          </div>
         </div>
 
+        {/* MEMO */}
         <textarea
           className="w-full rounded-xl bg-zinc-900 border border-zinc-800 p-3 min-h-[120px]"
           placeholder="形式メモ（例：スタンディング / 整番 / セトリ覚え書き など）"
@@ -89,6 +105,7 @@ export default function NewLivePage() {
           onChange={(e) => setMemo(e.target.value)}
         />
 
+        {/* SAVE BUTTON */}
         <button
           disabled={loading}
           className="rounded-xl bg-lime-400 text-black font-black px-4 py-3 disabled:opacity-60"

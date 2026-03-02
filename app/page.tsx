@@ -46,7 +46,7 @@ export default async function Page() {
 
         {nextLive ? (
           <Link
-            href={`/lives/${nextLive.id}`}
+            href={`/lives/${nextLive.id}/edit`}
             className="block rounded-3xl border border-lime-400/60 overflow-hidden hover:border-lime-400 transition"
           >
             <div className="bg-lime-400 text-black p-6">
@@ -95,7 +95,7 @@ export default async function Page() {
         ) : (
           <div className="grid gap-3">
             {scheduleLives.map((live) => (
-              <Link key={live.id} href={`/lives/${live.id}`}>
+              <Link key={live.id} href={`/lives/${live.id}/edit`}>
                 <div className="border border-zinc-800 rounded-2xl p-4 bg-black/40 hover:border-lime-400 transition">
                   <div className="inline-block bg-lime-400 text-black font-black px-3 py-1 rounded-lg">
                     {live.live_date}
