@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 
+const APP_NAME = "LIVE\u00D7LOG";
+
 export const metadata: Metadata = {
-  title: "LIVE×LIFE",
+  title: APP_NAME,
 };
 
 export default function RootLayout({
@@ -14,10 +16,16 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className="bg-black text-white">
-        {/* ページ本体 */}
-        <div className="pb-24">{children}</div>
+        <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 px-4 pt-4 pb-2">
+          <div className="mx-auto max-w-md">
+            <div className="inline-block border-2 border-white bg-zinc-900 px-2 py-1 text-sm font-black tracking-wide text-white leading-none">
+              {APP_NAME}
+            </div>
+          </div>
+        </header>
 
-        {/* 固定フッターナビ */}
+        <div className="pt-16 pb-24">{children}</div>
+
         <nav className="fixed bottom-0 left-0 right-0 border-t border-zinc-800 bg-black/80 backdrop-blur">
           <div className="mx-auto max-w-md grid grid-cols-3">
             <Link

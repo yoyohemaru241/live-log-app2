@@ -1,11 +1,10 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import type { Live } from "@/lib/lives";
 
-function toLocalDate(yyyy_mm_dd: string) {
-  // "2026-02-20" → local Date(00:00)
-  const [y, m, d] = yyyy_mm_dd.split("-").map(Number);
+function toLocalDate(yyyyMmDd: string) {
+  const [y, m, d] = yyyyMmDd.split("-").map(Number);
   return new Date(y, (m ?? 1) - 1, d ?? 1);
 }
 
@@ -23,7 +22,9 @@ export default async function Page() {
     .select("id, artist, live_date, venue, open_time, start_time")
     .order("live_date", { ascending: true });
 
-  if (error) return <div className="p-4">エラー: {error.message}</div>;
+  if (error) {
+    return <div className="p-4">Error: {error.message}</div>;
+  }
 
   const lives = (data ?? []) as Live[];
 
@@ -37,7 +38,6 @@ export default async function Page() {
   return (
     <div className="min-h-screen bg-black text-white p-4 pb-28">
       <div className="mb-4">
-        <div className="text-xs text-zinc-400 tracking-widest">LIVE×LIFE</div>
         <h1 className="text-2xl font-black">HOME</h1>
       </div>
 
@@ -55,32 +55,24 @@ export default async function Page() {
             </div>
 
             <div className="p-6 bg-zinc-950">
-              <div className="text-lime-400 font-black tracking-wide mb-2">
-                VENUE
-              </div>
-              <div className="text-2xl font-black">
-                {nextLive.venue ?? "未入力"}
-              </div>
+              <div className="text-lime-400 font-black tracking-wide mb-2">VENUE</div>
+              <div className="text-2xl font-black">{nextLive.venue ?? "TBD"}</div>
 
               <div className="grid grid-cols-2 gap-4 mt-4">
                 <div>
                   <div className="text-lime-400 font-black">OPEN</div>
-                  <div className="text-2xl font-black">
-                    {nextLive.open_time ?? "-"}
-                  </div>
+                  <div className="text-2xl font-black">{nextLive.open_time ?? "-"}</div>
                 </div>
                 <div>
                   <div className="text-lime-400 font-black">START</div>
-                  <div className="text-2xl font-black">
-                    {nextLive.start_time ?? "-"}
-                  </div>
+                  <div className="text-2xl font-black">{nextLive.start_time ?? "-"}</div>
                 </div>
               </div>
             </div>
           </Link>
         ) : (
           <div className="text-zinc-400 border border-zinc-800 rounded-2xl p-4">
-            予定がまだない。次の一本、入れよう。
+            No upcoming live. Add one from the + button.
           </div>
         )}
       </div>
@@ -90,7 +82,7 @@ export default async function Page() {
 
         {scheduleLives.length === 0 ? (
           <div className="text-zinc-400 border border-zinc-800 rounded-2xl p-4">
-            次の予定は NEXT LIVE だけ。
+            Only NEXT LIVE is scheduled.
           </div>
         ) : (
           <div className="grid gap-3">
@@ -112,7 +104,7 @@ export default async function Page() {
       <Link
         href="/lives/new"
         className="fixed bottom-24 right-6 w-16 h-16 rounded-full bg-lime-400 text-black flex items-center justify-center text-4xl font-black shadow-lg"
-        aria-label="ライブを登録"
+        aria-label="Add live"
       >
         +
       </Link>
